@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+:root{
+    --text: 13, 22, 18;
+    --primary: 102, 163, 133;
+    --secondary: 166, 194, 201;
+    --accent: 144, 172, 187;
+    --background: 245, 249, 247;
+    --circle-soft: 220, 234, 229;
+}
+.dark{
+    --text: 233, 242, 238;
+    --primary: 92, 153, 122;
+    --secondary: 54, 82, 89;
+    --accent: 68, 96, 111;
+    --background: 6, 10, 8;
+    --circle-soft: 40, 60, 50;
+}
+.bg-text {
+background-color: rgb(var(--text));
+}
+
+.bg-primary {
+background-color: rgb(var(--primary));
+}
+
+.bg-secondary {
+background-color: rgb(var(--secondary));
+}
+
+.bg-accent {
+background-color: rgb(var(--accent));
+}
+
+.bg-background {
+background-color: rgb(var(--background));
+}
+
+.bg-circle-soft{
+    background-color: rgb(var(--circle-soft));
+}
+
+.bg-bar{
+    background-color: rgba(var(--primary),0.3);
+}
