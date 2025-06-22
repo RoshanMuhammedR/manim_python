@@ -43,3 +43,9 @@ background-color: rgb(var(--background));
 .bg-bar{
     background-color: rgba(var(--primary),0.3);
 }
+
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
