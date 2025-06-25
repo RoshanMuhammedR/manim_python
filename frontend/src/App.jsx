@@ -7,6 +7,7 @@ import SignIn from './pages/SIgnIn'
 import { useAuthStore } from './store/useAuthStore'
 import Dashboard from './pages/Dashboard'
 import { useEffect } from 'react'
+import SceneWorkspace from './pages/SceneWorkspace'
 const App = () => {
   const {authUser,checkAuth} = useAuthStore();
   
@@ -25,6 +26,7 @@ const App = () => {
         <Route path='/signup' element={authUser ? <Navigate to='/dashboard' /> : <SignUp/>}/>
         <Route path='/signin' element={authUser ? <Navigate to='/dashboard'/> : <SignIn />}/>
         <Route path='/dashboard' element={authUser ? <Dashboard /> : <Navigate to='/signin' />} />
+        <Route path='/dashboard/:projectName' element={authUser ? <SceneWorkspace /> : <Navigate to='/signin' />} />
       </Routes>
     </div>
   )

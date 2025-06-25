@@ -16,6 +16,11 @@
     --background: 6, 10, 8;
     --circle-soft: 40, 60, 50;
 }
+
+.text-color{
+    color: rgb(var(--text));
+}
+
 .bg-text {
 background-color: rgb(var(--text));
 }

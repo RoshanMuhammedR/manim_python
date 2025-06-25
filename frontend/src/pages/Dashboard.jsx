@@ -1,17 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LayoutGrid ,ListOrdered, Plus } from 'lucide-react';
 import { useAuthStore } from '../store/useAuthStore';
 import ProjectCard from '../components/ProjectCard';
+import NewProjectWindow from '../components/NewProjectWindow';
+import { useProjectStore } from '../store/useProjectStore';
+import { AnimatePresence } from 'framer-motion';
 
 const Dashboard = () => {
   const {authUser} = useAuthStore()
+  const {getProjects,projects} = useProjectStore();
   const [displayMode,setDisplayMode] = useState('grid');
+  const [showNewProj,setShowNewProj] = useState(false);
 
   const getIntials = (username)=> {
     return username.split(' ').map(word => word[0]?.toUpperCase() || '' ).join('');
   }
+
+  useEffect(()=>{
+    getProjects();
+  },[projects])
+
+
   return (
     <div className='text-[rgb(var(--text))] bg-background w-full min-h-screen'>
+      <AnimatePresence>
+        {showNewProj && <NewProjectWindow onClose={()=>setShowNewProj(false)} />}
+      </AnimatePresence>
+    
       <div className='w-full h-17 bg-bar flex justify-between items-center xl:px-70 lg:px-30  px-10 '>
         <span className='font-bold text-2xl'>Projects</span>
         <div className='flex items-center gap-2 select-none'>
@@ -55,21 +70,22 @@ const Dashboard = () => {
               <ListOrdered />
             </div>
           </div>
-          <div className="bg-primary rounded-xl w-40 h-15 flex items-center justify-center cursor-pointer">
+          <div 
+            className="bg-primary rounded-xl w-40 h-15 flex items-center justify-center cursor-pointer"
+            onClick={()=>setShowNewProj(true)}
+          >
             <Plus />
             <span>Add Project</span>
           </div>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full'>
-            {[...Array(10)].map((_, idx)=>(
-            <ProjectCard 
-              key={idx}
-              projName={'Hello project'} 
-              projStatus={'In Progress'}
-              projDesc={'This is my first project'}
-              projDate={'19-10-2025'}
-            />
-          ))}
+            {projects && projects.length > 0 && projects.map((project,id)=>(
+              <ProjectCard
+                key={id}
+                project={project}
+              />
+            )
+            )}
         </div>
       </div>
       <div className='w-full h-10'></div>

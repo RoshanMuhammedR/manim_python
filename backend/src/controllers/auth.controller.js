@@ -3,9 +3,7 @@ import User from "../models/user.model.js";
 import bcrypt from 'bcryptjs';
 
 
-export const checkAuth = (req, res) => {
-    console.log(req.user);
-    
+export const checkAuth = (req, res) => {    
   try {
     return res.status(200).json(req.user);
   } catch (error) {
