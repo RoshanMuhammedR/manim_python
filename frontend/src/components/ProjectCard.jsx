@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom'
 
 const ProjectCard = ({project}) => {
   const navigate = useNavigate();
-  const {setChoosenProj} = useProjectStore();
-  const handleProjectSelection = () => {
+  const {setChoosenProj,getScene} = useProjectStore();
+  const handleProjectSelection = () => {    
     setChoosenProj(project);
-    navigate(`/dashboard/${encodeURIComponent(project.projName)}`);
+    navigate(`/dashboard/${encodeURIComponent(project._id)}`);
   }
   return (
    <motion.div 

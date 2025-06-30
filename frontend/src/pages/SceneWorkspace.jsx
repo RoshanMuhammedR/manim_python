@@ -1,18 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAuthStore } from '../store/useAuthStore'
 import {WandSparkles,Clapperboard,FileInput} from 'lucide-react';
 import GeneratorSection from '../components/GeneratorSection';
 import EditorSection from '../components/EditorSection';
 import ExporterSection from '../components/ExporterSection';
+import { useProjectStore } from '../store/useProjectStore';
 
 const SceneWorkspace = () => {
     const [curWindow,setCurWindow] = useState('generator');
     const {authUser} = useAuthStore();
+    const {getScene,choosenScene} = useProjectStore()
+    
     const getIntials = (username)=> {
       return username.split(' ').map(word => word[0]?.toUpperCase() || '' ).join('');
     }
-    const {projectName}=useParams();
+    const {projectId}=useParams();
+
+    useEffect(() => {
+      if (projectId) {
+        getScene(projectId);
+      }
+    }, [projectId]);   
   return (
     <div className='w-full min-h-screen text-color bg-background'>
 
@@ -81,19 +90,23 @@ const SceneWorkspace = () => {
             <span className="mt-3">Exporter</span>
           </div>
         </div>
-        {/* Immediately Invoked Function Expression (IIFE) */}
-        {(()=>{
-          switch (curWindow) {
-            case 'generator':
-              return <GeneratorSection/>
-            case 'editor':
-              return <EditorSection />
-            case 'exporter':
-              return <ExporterSection />
-            default:
-              return null;
-          }
-        })()}
+        <div>
+            {/* Immediately Invoked Function Expression (IIFE) */}
+            {choosenScene && (()=>{
+              switch (curWindow) {
+                case 'generator':
+                  return <GeneratorSection 
+                        />
+                case 'editor':
+                  return <EditorSection />
+                case 'exporter':
+                  return <ExporterSection />
+                default:
+                  return null;
+              }
+            })()}
+        </div>
+        
       </div>
 
 

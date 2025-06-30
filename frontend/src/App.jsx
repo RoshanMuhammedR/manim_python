@@ -26,7 +26,7 @@ const App = () => {
         <Route path='/signup' element={authUser ? <Navigate to='/dashboard' /> : <SignUp/>}/>
         <Route path='/signin' element={authUser ? <Navigate to='/dashboard'/> : <SignIn />}/>
         <Route path='/dashboard' element={authUser ? <Dashboard /> : <Navigate to='/signin' />} />
-        <Route path='/dashboard/:projectName' element={authUser ? <SceneWorkspace /> : <Navigate to='/signin' />} />
+        <Route path='/dashboard/:projectId' element={authUser ? <SceneWorkspace /> : <Navigate to='/signin' />} />
       </Routes>
     </div>
   )
